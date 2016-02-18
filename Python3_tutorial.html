@@ -176,7 +176,7 @@ div#notebook {
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="-Python-and-MySQL-tutorial-"><center> Python and MySQL tutorial </center><a class="anchor-link" href="#-Python-and-MySQL-tutorial-">&#182;</a></h1><center> Author: Cheng Nie </center>
 <center> Check [chengnie.com](chengnie.com) for the most recent version </center>
-<center> Current Version: Feb 11, 2016</center>
+<center> Current Version: Feb 18, 2016</center>
 </div>
 </div>
 </div>
@@ -793,6 +793,33 @@ div#notebook {
 </div>
 
 </div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="kn">import</span> <span class="nn">collections</span>
+<span class="n">od</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">OrderedDict</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">tel</span><span class="o">.</span><span class="n">items</span><span class="p">()))</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">od</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -868,10 +895,11 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span> <span class="c"># multiple assignment</span>
+<div class=" highlight hl-ipython3"><pre><span class="c"># multiple assignment to assign two variables at the same time</span>
+<span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span> 
 <span class="k">while</span> <span class="n">a</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">:</span>
- <span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
- <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">b</span><span class="p">,</span> <span class="n">a</span><span class="o">+</span><span class="n">b</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+    <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">b</span><span class="p">,</span> <span class="n">a</span><span class="o">+</span><span class="n">b</span>
 </pre></div>
 
 </div>
@@ -904,6 +932,132 @@ div#notebook {
 </div>
 
 </div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Crawl-the-reviews-for-UT-Dallas-at-Yelp.com">Crawl the reviews for UT Dallas at Yelp.com<a class="anchor-link" href="#Crawl-the-reviews-for-UT-Dallas-at-Yelp.com">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The University of Texas at Dallas is reviewed on Yelp.com. It shows on this <a href="http://www.yelp.com/biz/university-of-texas-at-dallas-richardson?osq=ut+dallas">page</a> that it attracted 38 reviews so far from various reviewers. You learn from the webpage that Yelp displays at most 20 recommended reviews per page and we need to go to page 2 to see the review 21 to review 38. You notice that the URL in the address box of your browser changed when you click on the Next page. Previouly, on page 1, the URL is:</p>
+<p><a href="http://www.yelp.com/biz/university-of-texas-at-dallas-richardson">http://www.yelp.com/biz/university-of-texas-at-dallas-richardson</a></p>
+<p>On page 2, the URL is:</p>
+<p><a href="http://www.yelp.com/biz/university-of-texas-at-dallas-richardson?start=20">http://www.yelp.com/biz/university-of-texas-at-dallas-richardson?start=20</a></p>
+<p>You learn that probably Yelp use this <code>?start=20</code> to skip(or <code>offset</code> in MySQL language) the first 20 records to show you the next 18 reviews. You can use this pattern of going to the next page to enumerate all pages of a business in Yelp.com.</p>
+<p>In this exmaple, we are going get the rating (number of stars) and the date for each of these 38 reviews.</p>
+<p>The general procedure to crawl any web page is the following:</p>
+<ol>
+<li>Look for the string patterns proceeding and succeeding the information you are looking for in the source code of the page (the html file).</li>
+<li>Write a program to enumerate (<code>for</code> or <code>while</code> loop) all the pages.</li>
+</ol>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>For this example, I did a screenshot with my annotation to illustrate the critical patterns in the Yelp page for UTD reviews.</p>
+<ul>
+<li><code>review_start_pattern</code> is a variable to stroe the string of <code>'&lt;div class="review-wrapper"&gt;'</code> to locate the beginning of an individual review.</li>
+<li><code>rating_pattern</code> is a variable to stroe the string of <code>'&lt;i class="star-img stars_'</code> to locate the rating.</li>
+<li><code>date_pattern</code> is a variable to stroe the string of <code>'"datePublished" content="'</code> to locate date of the rating.</li>
+</ul>
+<p>It takes some trails and errors to figure out what are good string patterns to use to locate the information you need in an html. For example, I found that <code>'&lt;div class="review-wrapper"&gt;'</code> appeared exactly 20 times in the webpage, which is a good indication that it corresponds to the 20 individual reviews on the page (the <code>review-wrapper</code> tag seems to imply that too).</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="https://raw.githubusercontent.com/cniedotus/Python_scrape/master/fig/screenshot_yelp_UTD%20markup.png" alt="Screenshot of a section in the source code of the Yelp page about UT Dallas"></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="c"># crawl_UTD_reviews</span>
+<span class="c"># Author: Cheng Nie</span>
+<span class="c"># Email: me@chengnie.com</span>
+<span class="c"># Date: Feb 8, 2016</span>
+<span class="c"># Updated: Feb 12, 2016</span>
+
+<span class="kn">from</span> <span class="nn">urllib.request</span> <span class="k">import</span> <span class="n">urlopen</span>
+
+<span class="n">num_pages</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">reviews_per_page</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="c"># the file we will save the rating and date</span>
+<span class="n">out_file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;UTD_reviews.csv&#39;</span><span class="p">,</span> <span class="s">&#39;w&#39;</span><span class="p">)</span>
+<span class="c"># the url that we need to locate the page for UTD reviews</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s">&#39;http://www.yelp.com/biz/university-of-texas-at-dallas-</span><span class="se">\</span>
+<span class="s">richardson?start={start_number}&#39;</span>
+<span class="c"># the three string patterns we just explained </span>
+<span class="n">review_start_pattern</span> <span class="o">=</span> <span class="s">&#39;&lt;div class=&quot;review-wrapper&quot;&gt;&#39;</span>
+<span class="n">rating_pattern</span> <span class="o">=</span> <span class="s">&#39;&lt;i class=&quot;star-img stars_&#39;</span>
+<span class="n">date_pattern</span> <span class="o">=</span> <span class="s">&#39;&quot;datePublished&quot; content=&quot;&#39;</span>
+<span class="n">reviews_count</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="k">for</span> <span class="n">page</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_pages</span><span class="p">):</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s">&#39;processing page&#39;</span><span class="p">,</span> <span class="n">page</span><span class="p">)</span>
+    
+    <span class="c"># open the url and save the source code string to page_content</span>
+    <span class="n">html</span> <span class="o">=</span> <span class="n">urlopen</span><span class="p">(</span><span class="n">url</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">start_number</span> <span class="o">=</span> <span class="n">page</span> <span class="o">*</span> <span class="n">reviews_per_page</span><span class="p">))</span>
+    <span class="n">page_content</span> <span class="o">=</span> <span class="n">html</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s">&#39;utf-8&#39;</span><span class="p">)</span>
+    
+    <span class="c"># locate the beginning of an individual review</span>
+    <span class="n">review_start</span> <span class="o">=</span> <span class="n">page_content</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">review_start_pattern</span><span class="p">)</span>
+
+    <span class="k">while</span> <span class="n">review_start</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+        <span class="c"># it means there at least one more review to be crawled</span>
+        <span class="n">reviews_count</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="c"># get the rating</span>
+        <span class="n">cut_front</span> <span class="o">=</span> <span class="n">page_content</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">rating_pattern</span><span class="p">,</span> <span class="n">review_start</span><span class="p">)</span> \
+                    <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">rating_pattern</span><span class="p">)</span>
+        <span class="n">cut_end</span> <span class="o">=</span> <span class="n">page_content</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s">&#39;&quot; title=&quot;&#39;</span><span class="p">,</span> <span class="n">cut_front</span><span class="p">)</span>
+        <span class="n">rating</span> <span class="o">=</span> <span class="n">page_content</span><span class="p">[</span><span class="n">cut_front</span><span class="p">:</span><span class="n">cut_end</span><span class="p">]</span>
+
+        <span class="c"># get the date</span>
+        <span class="n">cut_front</span> <span class="o">=</span> <span class="n">page_content</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">date_pattern</span><span class="p">,</span> <span class="n">cut_end</span><span class="p">)</span> \
+                    <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">date_pattern</span><span class="p">)</span>
+        <span class="n">cut_end</span> <span class="o">=</span> <span class="n">page_content</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s">&#39;&quot;&gt;&#39;</span><span class="p">,</span> <span class="n">cut_front</span><span class="p">)</span>
+        <span class="n">date</span> <span class="o">=</span> <span class="n">page_content</span><span class="p">[</span><span class="n">cut_front</span><span class="p">:</span><span class="n">cut_end</span><span class="p">]</span>
+
+        <span class="c"># save the data into out_file</span>
+        <span class="n">out_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">rating</span><span class="p">,</span> <span class="n">date</span><span class="p">])</span> <span class="o">+</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)</span>
+        <span class="n">review_start</span> <span class="o">=</span> <span class="n">page_content</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">review_start_pattern</span><span class="p">,</span> <span class="n">cut_end</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s">&#39;crawled&#39;</span><span class="p">,</span> <span class="n">reviews_count</span><span class="p">,</span> <span class="s">&#39;reviews so far&#39;</span><span class="p">)</span>
+
+
+<span class="n">out_file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>You can save the code in the cell above into a notebook file named 
+crawl_BOM.ipynb in the same directory as this Jupyter notebook. 
+Then you can run the Python code from that cell in the new notebook. 
+You can modify it for your homework submission. 
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -973,13 +1127,14 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="c"># output for viewing first</span>
+<div class=" highlight hl-ipython3"><pre><span class="c"># output for eyeballing the data</span>
 
 <span class="kn">import</span> <span class="nn">string</span>
 <span class="kn">import</span> <span class="nn">random</span>
 
 <span class="c"># fix the pseudo-random sequences for easy replication </span>
-<span class="c"># It will generate the same random sequences of nubmers/letters with the same seed. </span>
+<span class="c"># It will generate the same random sequences </span>
+<span class="c"># of nubmers/letters with the same seed. </span>
 <span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span> 
 
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">50</span><span class="p">):</span>
@@ -998,7 +1153,7 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="c"># write the data to a file </span>
+<div class=" highlight hl-ipython3"><pre><span class="c"># write the data to a file called data.csv</span>
 <span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>
 <span class="n">out_file</span><span class="o">=</span><span class="nb">open</span><span class="p">(</span><span class="s">&#39;data.csv&#39;</span><span class="p">,</span><span class="s">&#39;w&#39;</span><span class="p">)</span>
 <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;id&#39;</span><span class="p">,</span><span class="s">&#39;name&#39;</span><span class="p">,</span><span class="s">&#39;age&#39;</span><span class="p">]</span>
@@ -1021,7 +1176,7 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="c"># read data into Python</span>
+<div class=" highlight hl-ipython3"><pre><span class="c"># load data back into Python</span>
 <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;data.csv&#39;</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">):</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
 </pre></div>
@@ -1031,52 +1186,31 @@ div#notebook {
 </div>
 
 </div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="c"># To disable to the new line added for each print</span>
+<span class="c"># use the end parameter in print function</span>
+<span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;data.csv&#39;</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="n">end</span> <span class="o">=</span> <span class="s">&#39;&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="MySQL">MySQL<a class="anchor-link" href="#MySQL">&#182;</a></h1><p>Install MySQL 5.7 following this <a href="https://dev.mysql.com/downloads/workbench/">link</a>. You might also need to install the prerequisites listed <a href="http://dev.mysql.com/resources/wb62_prerequisites.html">here</a> before you can install the workbench.</p>
+<h1 id="MySQL">MySQL<a class="anchor-link" href="#MySQL">&#182;</a></h1><p>Install MySQL 5.7 Workbench first following this <a href="https://dev.mysql.com/downloads/workbench/">link</a>. You might also need to install the prerequisites listed <a href="http://dev.mysql.com/resources/wb62_prerequisites.html">here</a> before you can install the Workbench. The Workbench is an interface to interact with MySQL database. The actual MySQL database server requires a second step: run the MySQL Installer, then add and intall the MySQL servers using the Installer. You can accept the default options during installation. Later, you will connect to MySQL using the password you set during the installation and configuration. I set the password to be <code>pythonClass</code>.</p>
 <p>The documentation for MySQL is <a href="http://dev.mysql.com/doc/refman/5.7/en/">here</a>.</p>
-<p>You can accept the default options during installation. Later, you will connect to MySQL using the password you set during the installation.</p>
 <p>To get comfortable with it, you might find <a href="http://www.w3schools.com/sql/">this tutorial</a> of Structured Query Language(SQL) to be helpful.</p>
 
-</div>
-</div>
-</div>These commands are executed in MySQL query tab, not in Python. 
-
-In mysql, you need to end all commands with ;
-
-
------------------------ In MySQL ------------------
-
-show databases;
-
-create database test;
-
-use test;
-
-show tables;
-
-create table example(
-id int not null,
-name varchar(30),
-age tinyint,
-primary key(id));
-
-show tables;
-
-desc example;
-
-load data local infile "C:\\Users\\cnie\\Downloads\\data.csv" into table test.example FIELDS TERMINATED BY ',' lines terminated by '\r\n' ignore 1 lines;
-
-select * from example;
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Crawl-the-reviews-for-UT-Dallas-at-Yelp.com">Crawl the reviews for UT Dallas at Yelp.com<a class="anchor-link" href="#Crawl-the-reviews-for-UT-Dallas-at-Yelp.com">&#182;</a></h1>
 </div>
 </div>
 </div>
@@ -1085,73 +1219,563 @@ select * from example;
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="c"># crawl_UTD_reviews</span>
-<span class="c"># Author: Cheng Nie</span>
-<span class="c"># Email: me@chengnie.com</span>
-<span class="c"># Date: Feb 8, 2016</span>
+<div class=" highlight hl-ipython3"><pre><span class="n">These</span> <span class="n">commands</span> <span class="n">are</span> <span class="n">executed</span> <span class="ow">in</span> <span class="n">MySQL</span> <span class="n">query</span> <span class="n">tab</span><span class="p">,</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">Python</span><span class="o">.</span> 
 
-<span class="kn">from</span> <span class="nn">urllib.request</span> <span class="k">import</span> <span class="n">urlopen</span>
+<span class="n">In</span> <span class="n">mysql</span><span class="p">,</span> <span class="n">you</span> <span class="n">need</span> <span class="n">to</span> <span class="n">end</span> <span class="nb">all</span> <span class="n">commands</span> <span class="k">with</span> <span class="p">;</span>
 
-<span class="n">num_pages</span> <span class="o">=</span> <span class="mi">2</span>
-<span class="n">reviews_per_page</span> <span class="o">=</span> <span class="mi">20</span>
-<span class="n">out_file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;UTD_reviews.csv&#39;</span><span class="p">,</span> <span class="s">&#39;w&#39;</span><span class="p">)</span>
-<span class="n">url</span> <span class="o">=</span> <span class="s">&#39;http://www.yelp.com/biz/university-of-texas-at-dallas-</span><span class="se">\</span>
-<span class="s">richardson?start={start_number}&#39;</span>
-<span class="n">review_start_pattern</span> <span class="o">=</span> <span class="s">&#39;&lt;div class=&quot;review-wrapper&quot;&gt;&#39;</span>
-<span class="n">rating_pattern</span> <span class="o">=</span> <span class="s">&#39;&lt;i class=&quot;star-img stars_&#39;</span>
-<span class="n">date_pattern</span> <span class="o">=</span> <span class="s">&#39;&quot;datePublished&quot; content=&quot;&#39;</span>
-<span class="n">reviews_count</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="c">#</span>
+<span class="c"># ----------------------- In MySQL ------------------</span>
 
-<span class="k">for</span> <span class="n">page</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_pages</span><span class="p">):</span>
+<span class="c"># display the database</span>
+<span class="n">show</span> <span class="n">databases</span><span class="p">;</span>
 
-    <span class="nb">print</span><span class="p">(</span><span class="s">&#39;processing page&#39;</span><span class="p">,</span> <span class="n">page</span><span class="p">)</span>
-    <span class="n">html</span> <span class="o">=</span> <span class="n">urlopen</span><span class="p">(</span><span class="n">url</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">start_number</span> <span class="o">=</span> <span class="n">page</span> <span class="o">*</span> <span class="n">reviews_per_page</span><span class="p">))</span>
-    <span class="n">page_content</span> <span class="o">=</span> <span class="n">html</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s">&#39;utf-8&#39;</span><span class="p">)</span>
-    <span class="n">review_start</span> <span class="o">=</span> <span class="n">page_content</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">review_start_pattern</span><span class="p">)</span>
+<span class="c"># create a database named test</span>
+<span class="n">create</span> <span class="n">database</span> <span class="n">test</span><span class="p">;</span>
 
-    <span class="k">while</span> <span class="n">review_start</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
-        <span class="c"># it means there are more reviews to be crawled</span>
-        <span class="n">reviews_count</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="c"># choose a database for future commands</span>
+<span class="n">use</span> <span class="n">test</span><span class="p">;</span>
 
-        <span class="c"># get the rating</span>
-        <span class="n">cut_front</span> <span class="o">=</span> <span class="n">page_content</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">rating_pattern</span><span class="p">,</span> <span class="n">review_start</span><span class="p">)</span> \
-                    <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">rating_pattern</span><span class="p">)</span>
-        <span class="n">cut_end</span> <span class="o">=</span> <span class="n">page_content</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s">&#39;&quot; title=&quot;&#39;</span><span class="p">,</span> <span class="n">cut_front</span><span class="p">)</span>
-        <span class="n">rating</span> <span class="o">=</span> <span class="n">page_content</span><span class="p">[</span><span class="n">cut_front</span><span class="p">:</span><span class="n">cut_end</span><span class="p">]</span>
+<span class="c"># display the tables in test database</span>
+<span class="n">show</span> <span class="n">tables</span><span class="p">;</span>
 
-        <span class="c"># get the date</span>
-        <span class="n">cut_front</span> <span class="o">=</span> <span class="n">page_content</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">date_pattern</span><span class="p">,</span> <span class="n">cut_end</span><span class="p">)</span> \
-                    <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">date_pattern</span><span class="p">)</span>
-        <span class="n">cut_end</span> <span class="o">=</span> <span class="n">page_content</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s">&#39;&quot;&gt;&#39;</span><span class="p">,</span> <span class="n">cut_front</span><span class="p">)</span>
-        <span class="n">date</span> <span class="o">=</span> <span class="n">page_content</span><span class="p">[</span><span class="n">cut_front</span><span class="p">:</span><span class="n">cut_end</span><span class="p">]</span>
+<span class="c"># create a new table named example</span>
+<span class="n">create</span> <span class="n">table</span> <span class="n">example</span><span class="p">(</span>
+<span class="nb">id</span> <span class="nb">int</span> <span class="ow">not</span> <span class="n">null</span><span class="p">,</span>
+<span class="n">name</span> <span class="n">varchar</span><span class="p">(</span><span class="mi">30</span><span class="p">),</span>
+<span class="n">age</span> <span class="n">tinyint</span><span class="p">,</span>
+<span class="n">primary</span> <span class="n">key</span><span class="p">(</span><span class="nb">id</span><span class="p">));</span>
 
-        <span class="c"># save the data into out_file</span>
-        <span class="n">out_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">rating</span><span class="p">,</span> <span class="n">date</span><span class="p">])</span> <span class="o">+</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)</span>
-        <span class="n">review_start</span> <span class="o">=</span> <span class="n">page_content</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">review_start_pattern</span><span class="p">,</span> <span class="n">cut_end</span><span class="p">)</span>
+<span class="c"># now we should have the example table</span>
+<span class="n">show</span> <span class="n">tables</span><span class="p">;</span>
 
-    <span class="nb">print</span><span class="p">(</span><span class="s">&#39;crawled&#39;</span><span class="p">,</span> <span class="n">reviews_count</span><span class="p">,</span> <span class="s">&#39;reviews so far&#39;</span><span class="p">)</span>
+<span class="c"># how was the table example defined again?</span>
+<span class="n">desc</span> <span class="n">example</span><span class="p">;</span>
+
+<span class="c"># is there anything in the example table?</span>
+<span class="n">select</span> <span class="o">*</span> <span class="kn">from</span> <span class="nn">example</span><span class="p">;</span>
+
+<span class="c"># import csv file into MySQL database</span>
+<span class="n">load</span> <span class="n">data</span> <span class="n">local</span> <span class="n">infile</span> <span class="s">&quot;C:</span><span class="se">\\</span><span class="s">Users</span><span class="se">\\</span><span class="s">cxn123430</span><span class="se">\\</span><span class="s">Downloads</span><span class="se">\\</span><span class="s">data.csv&quot;</span> <span class="n">into</span> <span class="n">table</span> <span class="n">test</span><span class="o">.</span><span class="n">example</span> <span class="n">FIELDS</span> <span class="n">TERMINATED</span> <span class="n">BY</span> <span class="s">&#39;,&#39;</span> <span class="n">lines</span> <span class="n">terminated</span> <span class="n">by</span> <span class="s">&#39;</span><span class="se">\r\n</span><span class="s">&#39;</span> <span class="n">ignore</span> <span class="mi">1</span> <span class="n">lines</span><span class="p">;</span>
+
+<span class="c"># is there anything now?</span>
+<span class="n">select</span> <span class="o">*</span> <span class="kn">from</span> <span class="nn">example</span><span class="p">;</span>
+
+<span class="c"># drop the table</span>
+<span class="n">drop</span> <span class="n">table</span> <span class="n">example</span><span class="p">;</span>
+
+<span class="c"># does the example table still exist?</span>
+<span class="n">show</span> <span class="n">tables</span><span class="p">;</span>
 
 
-<span class="n">out_file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="o">-------------------------------</span>
+<span class="c"># clear the data but keep the definition </span>
+<span class="n">truncate</span> <span class="n">table</span> <span class="n">example</span><span class="p">;</span>
+
+<span class="c"># is there still anything?</span>
+<span class="n">select</span> <span class="o">*</span> <span class="kn">from</span> <span class="nn">example</span><span class="p">;</span>
 </pre></div>
 
 </div>
 </div>
 </div>
 
-</div>You can save the code in the cell above into a notebook file named 
-crawl_BOM.ipynb in the same directory as this Jupyter notebook. 
-Then you can run the Python code from that cell in the new notebook. 
-You can modify it for your homework submission. 
+</div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Quiz: import the crawled file into a table in your database.</p>
+<p>Quiz: import the crawled Yelp review file <code>UTD_reviews.csv</code> into a table in your database.</p>
 
 </div>
 </div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Use-Python-to-access-MySQL-database">Use Python to access MySQL database<a class="anchor-link" href="#Use-Python-to-access-MySQL-database">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Since the official MySQL 5.7 provides support for Python upto Version 3.4 as of writing this tutorial, we need to install a package named <code>mysql-connector-python</code> to provide support for the cutting-edge Python 3.5. Execute the following line in Windows command line to install it. 
+This is relatively easy since you have the Anancoda installed. We can use the <code>conda</code> command to intall that package in the Windows command line.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="c">#</span>
+<span class="c"># ----------------------- In Windows command line(cmd) ------------------</span>
+
+<span class="n">conda</span>  <span class="n">install</span> <span class="n">mysql</span><span class="o">-</span><span class="n">connector</span><span class="o">-</span><span class="n">python</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Remember that we use Python to save 50 kids' infomation into a csv file named <code>data.csv</code> first and then use the <code>load</code> command in MySQL to import the data? We don't actually need to save the <code>data.csv</code> file to hard disk. And we can "load" the same data into database without leaving Python.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="c">#</span>
+<span class="c"># ----------------------- In Python ------------------</span>
+
+<span class="c"># access table from Python</span>
+
+<span class="c"># connect to MySQL in Python</span>
+<span class="kn">import</span> <span class="nn">mysql.connector</span>
+<span class="n">cnx</span> <span class="o">=</span> <span class="n">mysql</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="s">&#39;root&#39;</span><span class="p">,</span>
+                              <span class="n">password</span><span class="o">=</span><span class="s">&#39;pythonClass&#39;</span><span class="p">,</span>
+                              <span class="n">database</span><span class="o">=</span><span class="s">&#39;test&#39;</span><span class="p">)</span>
+<span class="c"># All DDL (Data Definition Language) statements are </span>
+<span class="c"># executed using a handle structure known as a cursor</span>
+<span class="n">cursor</span> <span class="o">=</span> <span class="n">cnx</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+
+<span class="c"># create a table named example</span>
+<span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&#39;&#39;&#39;create table example(</span>
+<span class="s">id int not null,</span>
+<span class="s">name varchar(30),</span>
+<span class="s">age tinyint,</span>
+<span class="s">primary key(id));&#39;&#39;&#39;</span><span class="p">)</span>
+<span class="n">cnx</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+
+<span class="c"># write the same data  to the example table without saving a csv file</span>
+<span class="n">query0_template</span> <span class="o">=</span> <span class="s">&#39;&#39;&#39;insert into example (id, name, age) </span><span class="se">\</span>
+<span class="s">values ({id_num},&quot;{c_name}&quot;,{c_age});&#39;&#39;&#39;</span>
+<span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">50</span><span class="p">):</span>
+    <span class="n">query0</span> <span class="o">=</span> <span class="n">query0_template</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">id_num</span> <span class="o">=</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span>
+                           <span class="n">c_name</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">string</span><span class="o">.</span><span class="n">ascii_uppercase</span><span class="p">),</span>
+                           <span class="n">c_age</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">6</span><span class="p">)))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">query0</span><span class="p">)</span>
+    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query0</span><span class="p">)</span>
+    <span class="n">cnx</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>To get better understanding of the table we just created. We will use MySQL command line again.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="c">#</span>
+<span class="c"># ----------------------- In MySQL ------------------</span>
+
+<span class="c"># To get the totoal number of records</span>
+<span class="n">select</span> <span class="n">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">example</span><span class="p">;</span>
+
+<span class="c"># To get age histgram</span>
+<span class="n">select</span> <span class="n">distinct</span> <span class="n">age</span><span class="p">,</span> <span class="n">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">example</span> <span class="n">group</span> <span class="n">by</span> <span class="n">age</span><span class="p">;</span>
+
+<span class="c"># create a copy of the example table for modifying.</span>
+<span class="n">create</span> <span class="n">table</span> <span class="n">e_copy</span> <span class="n">select</span> <span class="o">*</span> <span class="kn">from</span> <span class="nn">example</span><span class="p">;</span>
+<span class="n">select</span> <span class="o">*</span> <span class="kn">from</span> <span class="nn">e_copy</span><span class="p">;</span>
+
+<span class="c"># note that the primary key is not copied to the e_copy table</span>
+<span class="n">desc</span> <span class="n">e_copy</span><span class="p">;</span>
+
+<span class="c"># add the primary key to e_copy table using the alter command</span>
+<span class="n">alter</span> <span class="n">table</span> <span class="n">e_copy</span> <span class="n">add</span> <span class="n">primary</span> <span class="n">key</span><span class="p">(</span><span class="nb">id</span><span class="p">);</span>
+
+<span class="c"># is it done correctly?</span>
+<span class="n">desc</span> <span class="n">e_copy</span><span class="p">;</span>
+
+<span class="c"># does MySQL take the primary key seriously?</span>
+<span class="n">insert</span> <span class="n">into</span> <span class="n">e_copy</span> <span class="p">(</span><span class="nb">id</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">age</span><span class="p">)</span> <span class="n">values</span> <span class="p">(</span><span class="n">null</span><span class="p">,</span><span class="s">&#39;P&#39;</span><span class="p">,</span><span class="mi">6</span><span class="p">);</span>
+<span class="n">insert</span> <span class="n">into</span> <span class="n">e_copy</span> <span class="p">(</span><span class="nb">id</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">age</span><span class="p">)</span> <span class="n">values</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="s">&#39;P&#39;</span><span class="p">,</span><span class="mi">6</span><span class="p">);</span> 
+
+<span class="c"># alright, let&#39;s insert something else</span>
+<span class="n">insert</span> <span class="n">into</span> <span class="n">e_copy</span> <span class="p">(</span><span class="nb">id</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">age</span><span class="p">)</span> <span class="n">values</span> <span class="p">(</span><span class="mi">51</span><span class="p">,</span><span class="s">&#39;P&#39;</span><span class="p">,</span><span class="mi">6</span><span class="p">);</span>
+<span class="n">insert</span> <span class="n">into</span> <span class="n">e_copy</span> <span class="p">(</span><span class="nb">id</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">age</span><span class="p">)</span> <span class="n">values</span> <span class="p">(</span><span class="mi">52</span><span class="p">,</span><span class="s">&#39;Q&#39;</span><span class="p">,</span><span class="n">null</span><span class="p">);</span>
+<span class="n">insert</span> <span class="n">into</span> <span class="n">e_copy</span> <span class="p">(</span><span class="nb">id</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">age</span><span class="p">)</span> <span class="n">values</span> <span class="p">(</span><span class="mi">54</span><span class="p">,</span><span class="s">&#39;S&#39;</span><span class="p">,</span><span class="n">null</span><span class="p">),(</span><span class="mi">55</span><span class="p">,</span><span class="s">&#39;T&#39;</span><span class="p">,</span><span class="n">null</span><span class="p">);</span>
+<span class="n">insert</span> <span class="n">into</span> <span class="n">e_copy</span> <span class="p">(</span><span class="nb">id</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span> <span class="n">values</span> <span class="p">(</span><span class="mi">53</span><span class="p">,</span><span class="s">&#39;R&#39;</span><span class="p">);</span>
+
+<span class="c"># who is the child with id of 53?</span>
+<span class="n">select</span> <span class="o">*</span> <span class="kn">from</span> <span class="nn">e_copy</span> <span class="n">where</span> <span class="nb">id</span> <span class="o">=</span> <span class="mi">53</span><span class="p">;</span>
+
+<span class="c"># update the age for this child. </span>
+<span class="n">update</span> <span class="n">e_copy</span> <span class="nb">set</span> <span class="n">age</span><span class="o">=</span><span class="mi">3</span> <span class="n">where</span> <span class="nb">id</span><span class="o">=</span><span class="mi">53</span><span class="p">;</span>
+<span class="n">select</span> <span class="o">*</span> <span class="kn">from</span> <span class="nn">e_copy</span> <span class="n">where</span> <span class="nb">id</span> <span class="o">=</span> <span class="mi">53</span><span class="p">;</span>
+
+<span class="c"># what&#39;s inside the table now?</span>
+<span class="n">select</span> <span class="o">*</span> <span class="kn">from</span> <span class="nn">e_copy</span><span class="p">;</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Again, you can actually do everything in Python without going to the MySQL workbench.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="c">#</span>
+<span class="c"># ----------------------- In Python ------------------</span>
+
+<span class="c"># query all the content in the e_copy table</span>
+<span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&#39;select * from e_copy;&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">cursor</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now we want to add one new column of <code>mother_name</code> to record the mother's name for each child in the child care.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="c">#</span>
+<span class="c"># ----------------------- In Python ------------------</span>
+
+
+<span class="c"># # example for adding new info for existing record</span>
+<span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&#39;alter table e_copy add mother_name varchar(1) default null&#39;</span><span class="p">)</span>
+<span class="n">cnx</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+
+<span class="n">query1_template</span><span class="o">=</span><span class="s">&#39;update e_copy set mother_name=&quot;{m_name}&quot; where id={id_num};&#39;</span>
+<span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">333</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">55</span><span class="p">):</span>
+    <span class="n">query1</span><span class="o">=</span><span class="n">query1_template</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">m_name</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">string</span><span class="o">.</span><span class="n">ascii_uppercase</span><span class="p">),</span><span class="n">id_num</span> <span class="o">=</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">query1</span><span class="p">)</span>
+    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query1</span><span class="p">)</span>
+    <span class="n">cnx</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+ 
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="c">#</span>
+<span class="c"># ----------------------- In Python ------------------</span>
+
+<span class="c"># example for insert new records</span>
+<span class="n">query2_template</span><span class="o">=</span><span class="s">&#39;insert into e_copy (id, name,age,mother_name) </span><span class="se">\</span>
+<span class="s">values ({id_num},&quot;{c_name}&quot;,{c_age},&quot;{m_name}&quot;)&#39;</span>    
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+    <span class="n">query2</span><span class="o">=</span><span class="n">query2_template</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">id_num</span> <span class="o">=</span> <span class="n">i</span><span class="o">+</span><span class="mi">60</span><span class="p">,</span> 
+                         <span class="n">c_name</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">string</span><span class="o">.</span><span class="n">ascii_uppercase</span><span class="p">),</span> 
+                         <span class="n">c_age</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">6</span><span class="p">),</span>
+                         <span class="n">m_name</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">string</span><span class="o">.</span><span class="n">ascii_uppercase</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">query2</span><span class="p">)</span>
+    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query2</span><span class="p">)</span>
+    <span class="n">cnx</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Check if you've updated the data successfully in MySQL database from Python</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="c">#</span>
+<span class="c"># ----------------------- In Python ------------------</span>
+
+<span class="c"># query all the content in the e_copy table</span>
+<span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&#39;select * from e_copy;&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">cursor</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="c">#</span>
+<span class="o">-----------------------</span> <span class="n">In</span> <span class="n">MySQL</span> <span class="o">------------------</span>
+
+<span class="n">Use</span> <span class="n">the</span> <span class="n">GUI</span> <span class="n">to</span> <span class="n">export</span> <span class="n">the</span> <span class="n">database</span> <span class="n">into</span> <span class="n">a</span> <span class="bp">self</span><span class="o">-</span><span class="n">contained</span> <span class="n">file</span> <span class="p">(</span><span class="n">the</span> <span class="n">extension</span> <span class="n">name</span> <span class="n">would</span> <span class="n">be</span> <span class="n">sql</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Regular-expression-in-Python">Regular expression in Python<a class="anchor-link" href="#Regular-expression-in-Python">&#182;</a></h1><p>Before you run this part, you need to download the <a href="">digits.txt</a> and <a href="">spaces.txt</a> files to the same folder as this notebook</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>What's in the <code>digits.txt</code> file?</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="kn">import</span> <span class="nn">re</span>
+<span class="n">infile</span><span class="o">=</span><span class="nb">open</span><span class="p">(</span><span class="s">&#39;digits.txt&#39;</span><span class="p">,</span><span class="s">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">content</span><span class="o">=</span><span class="n">infile</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>How can I find all the numbers in a file like <code>digits.txt</code>?</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="c"># Find all the numbers in the file</span>
+<span class="n">numbers</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s">&#39;\d+&#39;</span><span class="p">,</span><span class="n">content</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">numbers</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>How can I find all the equations?</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="c"># find equations</span>
+<span class="n">equations</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s">&#39;(\d+)=\d+&#39;</span><span class="p">,</span><span class="n">content</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">equations</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The equations seem to be incorrect, how can I correct them without affecting other text information?</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="c"># subsitute equations to correct them</span>
+<span class="c"># use the left hand side number</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s">&#39;(\d+)=\d+&#39;</span><span class="p">,</span><span class="s">&#39;</span><span class="se">\1</span><span class="s">=</span><span class="se">\1</span><span class="s">&#39;</span><span class="p">,</span><span class="n">content</span><span class="p">))</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="c"># another way to subsitute equations to correct them </span>
+<span class="c"># use the right hand side number</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s">&#39;\d+=(\d+)&#39;</span><span class="p">,</span><span class="s">&#39;</span><span class="se">\\</span><span class="s">1=</span><span class="se">\\</span><span class="s">1&#39;</span><span class="p">,</span><span class="n">content</span><span class="p">))</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="c"># Save to file</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s">&#39;(\d+)=\d+&#39;</span><span class="p">,</span><span class="s">&#39;</span><span class="se">\\</span><span class="s">1=</span><span class="se">\\</span><span class="s">1&#39;</span><span class="p">,</span><span class="n">content</span><span class="p">),</span> <span class="n">file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;digits_corrected.txt&#39;</span><span class="p">,</span> <span class="s">&#39;w&#39;</span><span class="p">))</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Preprocessing a text file with various types of spaces.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">infile</span><span class="o">=</span><span class="nb">open</span><span class="p">(</span><span class="s">&#39;spaces.txt&#39;</span><span class="p">,</span><span class="s">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">content</span><span class="o">=</span><span class="n">infile</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="nb">print</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s">&#39;[</span><span class="se">\t</span><span class="s"> ]+&#39;</span><span class="p">,</span><span class="s">&#39;</span><span class="se">\t</span><span class="s">&#39;</span><span class="p">,</span><span class="n">content</span><span class="p">))</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="nb">print</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s">&#39;\s+&#39;</span><span class="p">,</span><span class="s">&#39;</span><span class="se">\t</span><span class="s">&#39;</span><span class="p">,</span><span class="n">content</span><span class="p">),</span> <span class="n">file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;spaces_corrected.txt&#39;</span><span class="p">,</span> <span class="s">&#39;w&#39;</span><span class="p">))</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
 </div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
@@ -1167,7 +1791,8 @@ You can modify it for your homework submission.
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="n">word</span>
+<div class=" highlight hl-ipython3"><pre><span class="n">word</span> <span class="o">=</span> <span class="s">&#39;HELP&#39;</span> <span class="o">+</span> <span class="s">&#39;A&#39;</span>
+<span class="n">word</span>
 </pre></div>
 
 </div>
@@ -1231,6 +1856,16 @@ You can modify it for your homework submission.
 </div>
 
 </div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>How about selecting every other character?</p>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
@@ -1245,21 +1880,13 @@ You can modify it for your homework submission.
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Target:-&quot;HLA&quot;,-select-every-other-character">Target: "HLA", select every other character<a class="anchor-link" href="#Target:-&quot;HLA&quot;,-select-every-other-character">&#182;</a></h2>
-</div>
-</div>
-</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="n">word</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="nb">len</span><span class="p">(</span><span class="n">word</span><span class="p">):</span><span class="mi">2</span><span class="p">]</span>
+<div class=" highlight hl-ipython3"><pre><span class="c"># It&#39;s equivalent to </span>
+<span class="n">word</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="nb">len</span><span class="p">(</span><span class="n">word</span><span class="p">):</span><span class="mi">2</span><span class="p">]</span>
 </pre></div>
 
 </div>
@@ -1342,7 +1969,8 @@ You can modify it for your homework submission.
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="n">a</span>
+<div class=" highlight hl-ipython3"><pre><span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;spam&#39;</span><span class="p">,</span> <span class="s">&#39;eggs&#39;</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">1234</span><span class="p">]</span>
+<span class="n">a</span>
 </pre></div>
 
 </div>
@@ -1407,7 +2035,7 @@ You can modify it for your homework submission.
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Versatile-features">Versatile features<a class="anchor-link" href="#Versatile-features">&#182;</a></h2>
+<h2 id="Versatile-features-of-a-list">Versatile features of a list<a class="anchor-link" href="#Versatile-features-of-a-list">&#182;</a></h2>
 </div>
 </div>
 </div>
@@ -1432,8 +2060,23 @@ You can modify it for your homework submission.
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span class="c"># Remove some:</span>
-<span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span> <span class="c"># or del a[0:2]</span>
+<span class="k">del</span> <span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span> <span class="c"># or a[0:2] = []</span>
 <span class="n">a</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="c"># create some copies for change</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 </pre></div>
 
 </div>
@@ -1447,8 +2090,8 @@ You can modify it for your homework submission.
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span class="c"># Insert some:</span>
-<span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;insert&#39;</span><span class="p">,</span> <span class="s">&#39;some&#39;</span><span class="p">]</span>
-<span class="n">a</span>
+<span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;insert&#39;</span><span class="p">,</span> <span class="s">&#39;some&#39;</span><span class="p">]</span>
+<span class="n">b</span>
 </pre></div>
 
 </div>
@@ -1462,11 +2105,8 @@ You can modify it for your homework submission.
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span class="c"># inserting at one position is not the same as changing one element</span>
-<span class="c"># a=[1, 12, 100, 1234]</span>
-<span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">123</span><span class="p">,</span> <span class="mi">1234</span><span class="p">]</span>
-<span class="nb">sum</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
-<span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;insert&#39;</span><span class="p">,</span> <span class="s">&#39;some&#39;</span><span class="p">]</span>
-<span class="n">a</span>
+<span class="n">c</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;insert&#39;</span><span class="p">,</span> <span class="s">&#39;some&#39;</span><span class="p">]</span>
+<span class="n">c</span>
 </pre></div>
 
 </div>
@@ -1479,7 +2119,7 @@ You can modify it for your homework submission.
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Target:-Get-the-third-power-of-integers-between-0-and-10.">Target: Get the third power of integers between 0 and 10.<a class="anchor-link" href="#Target:-Get-the-third-power-of-integers-between-0-and-10.">&#182;</a></h2>
+<h2 id="How-to-get-the-third-power-of-integers-between-0-and-10.">How to get the third power of integers between 0 and 10.<a class="anchor-link" href="#How-to-get-the-third-power-of-integers-between-0-and-10.">&#182;</a></h2>
 </div>
 </div>
 </div>
@@ -1523,8 +2163,7 @@ You can modify it for your homework submission.
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span class="c"># list comprehension way</span>
-<span class="n">x_list</span><span class="o">=</span><span class="p">[</span><span class="n">x</span><span class="o">**</span><span class="mi">3</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">11</span><span class="p">)]</span>
-<span class="n">x_list</span>
+<span class="p">[</span><span class="n">x</span><span class="o">**</span><span class="mi">3</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">11</span><span class="p">)]</span>
 </pre></div>
 
 </div>
@@ -1537,8 +2176,7 @@ You can modify it for your homework submission.
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Use-if-in-list-comprehension">Use <code>if</code> in list comprehension<a class="anchor-link" href="#Use-if-in-list-comprehension">&#182;</a></h3><p>Target: find the even number below 10</p>
-
+<h2 id="Target:-find-the-even-number-below-10">Target: find the even number below 10<a class="anchor-link" href="#Target:-find-the-even-number-below-10">&#182;</a></h2>
 </div>
 </div>
 </div>
@@ -1565,7 +2203,8 @@ You can modify it for your homework submission.
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span> <span class="k">if</span> <span class="n">i</span><span class="o">%</span><span class="k">2</span>==0]
+<div class=" highlight hl-ipython3"><pre><span class="c"># Use if in list comprehension</span>
+<span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span> <span class="k">if</span> <span class="n">i</span><span class="o">%</span><span class="k">2</span>==0]
 </pre></div>
 
 </div>
@@ -1592,7 +2231,7 @@ You can modify it for your homework submission.
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Interact-MySQL-with-Python">Interact MySQL with Python<a class="anchor-link" href="#Interact-MySQL-with-Python">&#182;</a></h1>
+<h1 id="What's-next?">What's next?<a class="anchor-link" href="#What's-next?">&#182;</a></h1>
 </div>
 </div>
 </div>
@@ -1601,7 +2240,31 @@ You can modify it for your homework submission.
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Since the official MySQL 5.7.11 provides support for Python upto Version 3.4, we need to install a package to provide to support the Python 3.5. Execute the following line to install it.</p>
+<h2 id="Online-help-by-searching-in-Google">Online help by searching in Google<a class="anchor-link" href="#Online-help-by-searching-in-Google">&#182;</a></h2><ul>
+<li>Sort dict by value</li>
+</ul>
+<h2 id="More-topics">More topics<a class="anchor-link" href="#More-topics">&#182;</a></h2><ul>
+<li><a href="http://ipython.readthedocs.org/en/stable/">Jupyter Notebook</a></li>
+<li><a href="https://docs.python.org/2/library/sqlite3.html">sqlite3</a></li>
+<li><a href="https://www.safaribooksonline.com/blog/2014/11/18/intro-python-debugger/">Debug</a></li>
+<li><a href="http://www.crummy.com/software/BeautifulSoup/bs4/doc/">BeautifulSoup</a></li>
+<li><a href="http://scikit-learn.org/stable/">Scikit-learn for machine learning</a></li>
+<li><a href="https://networkx.github.io/index.html">networkx for social network analysis</a></li>
+<li><a href="http://matplotlib.org/gallery.html">matplotlib for Python graphics</a></li>
+<li><a href="http://nbviewer.jupyter.org/">Books published in Jupyter notebooks</a></li>
+</ul>
+<h2 id="Books-that-I-recommend">Books that I recommend<a class="anchor-link" href="#Books-that-I-recommend">&#182;</a></h2><p>All three books are available online legally through the UTD library. The Amazon links are given because the reviews might help you decide wheter or not to read them.</p>
+<ul>
+<li><a href="http://www.amazon.com/Python-Essential-Reference-David-Beazley/dp/0672329786/ref=sr_1_1?ie=UTF8&qid=1455314241&sr=8-1&keywords=python+essential+reference">Python Essential Reference (4th Edition) </a></li>
+<li><a href="http://www.amazon.com/Web-Scraping-Python-Collecting-Modern/dp/1491910291/ref=sr_1_1?ie=UTF8&qid=1455314292&sr=8-1&keywords=python+scraping">Web Scraping with Python</a></li>
+<li><a href="http://www.amazon.com/Python-Data-Analysis-Wrangling-IPython/dp/1449319793/ref=sr_1_12?ie=UTF8&qid=1455314179&sr=8-12&keywords=python">Python for Data Analysis</a></li>
+</ul>
+<h2 id="Courses-that-I-recommend">Courses that I recommend<a class="anchor-link" href="#Courses-that-I-recommend">&#182;</a></h2><ul>
+<li><a href="https://developers.google.com/edu/python/">Google Python Class</a></li>
+<li><a href="https://www.coursera.org/learn/python">Programming for Everybody (Getting Started with Python)
+University of Michigan</a></li>
+<li><a href="https://www.codecademy.com/learn/python">Code Academy course</a></li>
+</ul>
 
 </div>
 </div>
@@ -1611,241 +2274,7 @@ You can modify it for your homework submission.
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="o">!</span>conda  install mysql-connector-python
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="c">#</span>
-<span class="c"># ----------------------- In Python ------------------</span>
-
-<span class="c"># access table from Python</span>
-
-<span class="c"># connect to MySQL in Python</span>
-<span class="kn">import</span> <span class="nn">mysql.connector</span>
-<span class="n">cnx</span> <span class="o">=</span> <span class="n">mysql</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="s">&#39;root&#39;</span><span class="p">,</span>
-                              <span class="n">password</span><span class="o">=</span><span class="s">&#39;pythonClass&#39;</span><span class="p">,</span>
-                              <span class="n">database</span><span class="o">=</span><span class="s">&#39;test&#39;</span><span class="p">)</span>
-<span class="c"># All DDL (Data Definition Language) statements are </span>
-<span class="c"># executed using a handle structure known as a cursor</span>
-<span class="n">cursor</span> <span class="o">=</span> <span class="n">cnx</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
-
-<span class="c">#cursor.execute(&quot;&quot;)</span>
-<span class="c"># write the same data to the example table</span>
-<span class="n">query0</span> <span class="o">=</span> <span class="s">&#39;&#39;&#39;insert into example (id, name, age) </span><span class="se">\</span>
-<span class="s">values ({id_num},&quot;{c_name}&quot;,{c_age});&#39;&#39;&#39;</span>
-<span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">50</span><span class="p">):</span>
-    <span class="n">query1</span> <span class="o">=</span> <span class="n">query0</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">id_num</span> <span class="o">=</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span>
-                           <span class="n">c_name</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">string</span><span class="o">.</span><span class="n">ascii_uppercase</span><span class="p">),</span>
-                           <span class="n">c_age</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">6</span><span class="p">)))</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">query1</span><span class="p">)</span>
-    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query1</span><span class="p">)</span>
-    <span class="n">cnx</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
-    
-    
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>To get better understanding of the table we just created. We will use MySQL command line again.</p>
-
-</div>
-</div>
-</div>----------------------- In MySQL ------------------
-
-# To get the number of records.
-select count(*) from example;
-
-# To get age histgram:
-select distinct age, count(*) from example group by age;
-
-# create a copy of the example table for modifying.
-drop table if exists e_copy;
-create table e_copy select * from example;
-alter table e_copy add primary key(id);insert into e_copy (id, name, age) values (null,'P',6);
-insert into e_copy (id, name, age) values (3,'P',6); 
-insert into e_copy (id, name, age) values (51,'P',6);
-insert into e_copy (id, name, age) values (52,'Q',null);
-insert into e_copy (id, name, age) values (54,'Q',null),(55,'Q',null);
-insert into e_copy (id, name) values (53,'Q');
-update e_copy set age=7 where id=53;
-update e_copy set age=DEFAULT where id=53;
-update e_copy set age='' where id=53;
-
-select sum(age) from e_copy;
-select avg(age) from e_copy;
-select * from e_copy where age<3 and name<="C";
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="c">#</span>
-<span class="c"># ----------------------- In Python ------------------</span>
-<span class="c"># </span>
-<span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&#39;select * from e_copy;&#39;</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">cursor</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="c">#</span>
-<span class="c"># ----------------------- In Python ------------------</span>
-<span class="c"># </span>
-<span class="c"># # example for adding new info for existing record</span>
-<span class="c"># cursor.execute(&#39;alter table e_copy add mother_name varchar(1) default null&#39;)</span>
-<span class="n">query</span><span class="o">=</span><span class="s">&#39;update e_copy set mother_name=&quot;{m_name}&quot; where id={id_num};&#39;</span>
-<span class="c"># random.seed(333)</span>
-
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">50</span><span class="p">):</span>
-    <span class="n">query1</span><span class="o">=</span><span class="n">query</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">m_name</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">string</span><span class="o">.</span><span class="n">ascii_uppercase</span><span class="p">),</span><span class="n">id_num</span> <span class="o">=</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">query1</span><span class="p">)</span>
-    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query1</span><span class="p">)</span>
-    <span class="n">cnx</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
- 
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="c">#</span>
-<span class="c"># ----------------------- In Python ------------------</span>
-<span class="c"># </span>
-
-<span class="c"># example for insert new records</span>
-<span class="n">query2</span><span class="o">=</span><span class="s">&#39;insert into e_copy (id, name,age,mother_name) </span><span class="se">\</span>
-<span class="s">values ({id_num},&quot;{c_name}&quot;,{c_age},&quot;{m_name}&quot;)&#39;</span>    
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
-    <span class="n">query3</span><span class="o">=</span><span class="n">query2</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">id_num</span> <span class="o">=</span> <span class="n">i</span><span class="o">+</span><span class="mi">60</span><span class="p">,</span> 
-                         <span class="n">c_name</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">string</span><span class="o">.</span><span class="n">ascii_uppercase</span><span class="p">),</span> 
-                         <span class="n">c_age</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">6</span><span class="p">),</span>
-                         <span class="n">m_name</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">string</span><span class="o">.</span><span class="n">ascii_uppercase</span><span class="p">))</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">query3</span><span class="p">)</span>
-    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query3</span><span class="p">)</span>
-    <span class="n">cnx</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
-
-<span class="c"># check if you&#39;ve updated the data successfully in MySQL</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Regular-expression-in-Python">Regular expression in Python<a class="anchor-link" href="#Regular-expression-in-Python">&#182;</a></h1>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="kn">import</span> <span class="nn">re</span>
-<span class="c"># digits</span>
-<span class="c"># find all the numbers </span>
-<span class="n">infile</span><span class="o">=</span><span class="nb">open</span><span class="p">(</span><span class="s">&#39;digits.txt&#39;</span><span class="p">,</span><span class="s">&#39;r&#39;</span><span class="p">)</span>
-<span class="n">content</span><span class="o">=</span><span class="n">infile</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="c"># Find all the numbers in the file</span>
-<span class="n">numbers</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s">r&#39;\d+&#39;</span><span class="p">,</span><span class="n">content</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">numbers</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
-        
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="c"># find equations</span>
-<span class="n">equations</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s">r&#39;(\d+)=\d+&#39;</span><span class="p">,</span><span class="n">content</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">equations</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="c"># subsitute equations to correct them</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s">r&#39;(\d+)=\d+&#39;</span><span class="p">,</span><span class="s">r&#39;\1=\1&#39;</span><span class="p">,</span><span class="n">content</span><span class="p">))</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="c"># Save to file</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s">r&#39;(\d+)=\d+&#39;</span><span class="p">,</span><span class="s">r&#39;\1=\1&#39;</span><span class="p">,</span><span class="n">content</span><span class="p">),</span> <span class="n">file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;digits_corrected.txt&#39;</span><span class="p">,</span> <span class="s">&#39;w&#39;</span><span class="p">))</span>
+<div class=" highlight hl-ipython3"><pre> 
 </pre></div>
 
 </div>
